@@ -98,21 +98,21 @@ ymouse = mousepos(1,2);
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
    
    
-    radius = 3;
+    radius = GetRadius();
     m0=0;
     
     %% Holroyd's arcball
      if((xmouse.^2+ymouse.^2) < 0.5*radius.^2)        
          Z = sqrt(radius.^2 - xmouse.^2 - ymouse.^2);
-         m0 = [xmouse, ymouse, Z]';
+         vector = [xmouse, ymouse, Z]';
          
      else 
          Z =  (radius.^2)/2*sqrt(xmouse.^2 + ymouse.^2);
-         m0 = [xmouse, ymouse, Z]'/sqrt(xmouse.^2 + ymouse.^2+Z.^2);
+         vector = [xmouse, ymouse, Z]'/sqrt(xmouse.^2 + ymouse.^2+Z.^2);
      end
      
      %% Saving clicked mouse coords
-     SetInitialVector(m0);
+     SetInitialVector(vector);
     
     set(handles.figure1,'WindowButtonMotionFcn',{@my_MouseMoveFcn,hObject});
 end
@@ -150,10 +150,9 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
          m1 = [xmouse, ymouse, Z]'/sqrt(xmouse.^2 + ymouse.^2+Z.^2);
      end
      
-    %% Loading previous mouse coords
+    %% Quaternion from two vectors
     m0 = GetInitialVector();
-    
-     %% Quaternion from two vectors
+     
     axis = -cross(m1, m0); % Obtain axis
     angle = acosd((m1'*m0)/(norm(m1)*norm(m0)))*0.2; % Obtain angle
      
