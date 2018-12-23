@@ -158,7 +158,6 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     angle = acosd((m1'*m0)/(norm(m1)*norm(m0)))*0.2; % Obtain angle
      
     R = Eaa2rotMat(axis, angle); % Build Rotation Matrix
-    
    
     %% Rotate the Cube
     handles.Cube = RedrawCube(R,handles.Cube);
@@ -330,7 +329,6 @@ function rotmat_2_1_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of rotmat_2_1 as text
 %        str2double(get(hObject,'String')) returns contents of rotmat_2_1 as a double
-
 
 % --- Executes during object creation, after setting all properties.
 function rotmat_2_1_CreateFcn(hObject, eventdata, handles)
@@ -918,3 +916,15 @@ function euler_angle_c_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+function SetRotationMatrix(R)
+
+    set(handles.rotmat_1_1,'string',num2str(R(1,1)));
+    set(handles.rotmat_1_2,'string',num2str(R(1,2)));
+    set(handles.rotmat_1_3,'string',num2str(R(1,3)));
+    set(handles.rotmat_2_1,'string',num2str(R(2,1)));
+    set(handles.rotmat_2_2,'string',num2str(R(2,2)));
+    set(handles.rotmat_2_3,'string',num2str(R(2,3)));
+    set(handles.rotmat_3_1,'string',num2str(R(3,1)));
+    set(handles.rotmat_3_2,'string',num2str(R(3,2)));
+    set(handles.rotmat_3_3,'string',num2str(R(3,3)));
