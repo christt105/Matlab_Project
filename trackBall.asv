@@ -98,21 +98,21 @@ ymouse = mousepos(1,2);
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
    
    
-    radius = GetRadius();
+    radius = 3;
     m0=0;
     
     %% Holroyd's arcball
      if((xmouse.^2+ymouse.^2) < 0.5*radius.^2)        
          Z = sqrt(radius.^2 - xmouse.^2 - ymouse.^2);
-         vector = [xmouse, ymouse, Z]';
+         m0 = [xmouse, ymouse, Z]';
          
      else 
          Z =  (radius.^2)/2*sqrt(xmouse.^2 + ymouse.^2);
-         vector = [xmouse, ymouse, Z]'/sqrt(xmouse.^2 + ymouse.^2+Z.^2);
+         m0 = [xmouse, ymouse, Z]'/sqrt(xmouse.^2 + ymouse.^2+Z.^2);
      end
      
      %% Saving clicked mouse coords
-     SetInitialVector(vector);
+     SetInitialVector(m0);
     
     set(handles.figure1,'WindowButtonMotionFcn',{@my_MouseMoveFcn,hObject});
 end
@@ -150,15 +150,16 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
          m1 = [xmouse, ymouse, Z]'/sqrt(xmouse.^2 + ymouse.^2+Z.^2);
      end
      
-    %% Quaternion from two vectors
+    %% Loading previous mouse coords
     m0 = GetInitialVector();
-     
+    
+     %% Quaternion from two vectors
     axis = -cross(m1, m0); % Obtain axis
     angle = acosd((m1'*m0)/(norm(m1)*norm(m0)))*0.2; % Obtain angle
      
     R = Eaa2rotMat(axis, angle); % Build Rotation Matrix
     
-    
+    set(handles.
    
     %% Rotate the Cube
     handles.Cube = RedrawCube(R,handles.Cube);
