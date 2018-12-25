@@ -288,6 +288,14 @@ function button_quaternion_Callback(hObject, eventdata, handles)
 % hObject    handle to button_quaternion (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+quat = [str2double(get(handles.quaternion_q0_0,'String'));
+        str2double(get(handles.quaternion_q0_1,'String'));
+        str2double(get(handles.quaternion_q0_2,'String'));
+        str2double(get(handles.quaternion_q0_3,'String'))];
+quat = quat_normalize(quat);
+[R] = quat2RotMat(quat);
+
+handles.Cube = RedrawCube(R,handles.Cube);
 
 
 % --- Executes on button press in button_rotation_vector.
