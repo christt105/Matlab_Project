@@ -1,15 +1,17 @@
-function[R] = Eaa2rotMat(vector, angle)
+function [M] = Eaa2rotMat(u,angle)
+%EAA2ROTMAT Given an euler angle(radians) and vector, it returns its rotation matrix
+%   ATTENTION: angle must be in radians
 
-%Comprobes if vector is column
-if(iscolumn(vector) == 0)
-    vector = vector';
+% %Comprobes if vector is column
+if(iscolumn(u) == 0)
+    u = u';
 end
+    
+u = u/norm(u);
 
-%Makes vector unitary
-vector = vector/norm(vector);
+R1 = eye(3)*cos(angle);
+R2 = (1-cos(angle))*(u*u');
+R3 = sin(angle)*[0 -u(3) u(2); u(3) 0 -u(1); -u(2) u(1) 0];
 
-I=[1 0 0;0 1 0;0 0 1];
-
-X=[0 -vector(3) vector(2) ; vector(3) 0 -vector(1) ; -vector(2) vector(1) 0 ];
-
-[R] = I * cos(angle)+(1-cos(angle))*(vector*vector')+ X*sin(angle);
+M = R1+R2+R3;
+end
