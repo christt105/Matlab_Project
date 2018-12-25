@@ -274,7 +274,14 @@ function button_axis_angle_Callback(hObject, eventdata, handles)
 % hObject    handle to button_axis_angle (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+angle = str2double(get(handles.euler_angleaxis_angle,'String'));
+euler_axis = [str2double(get(handles.euler_angleaxis_x,'String'));
+                str2double(get(handles.euler_angleaxis_y,'String'));
+                str2double(get(handles.euler_angleaxis_z,'String'))];
+            
+[R] = Eaa2rotMat(euler_axis,angle);
 
+handles.Cube = RedrawCube(R,handles.Cube);
 
 % --- Executes on button press in button_quaternion.
 function button_quaternion_Callback(hObject, eventdata, handles)
