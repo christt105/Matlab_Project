@@ -317,6 +317,18 @@ function button_rotation_vector_Callback(hObject, eventdata, handles)
 % hObject    handle to button_rotation_vector (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+v_x = str2double(get(handles.rotation_vector_x,'String'));
+v_y = str2double(get(handles.rotation_vector_y,'String'));
+v_z = str2double(get(handles.rotation_vector_z,'String'));
+
+vec = [v_x, v_y, v_z]';
+
+if(norm(vec) == 0)
+    R = eye(3);
+else
+    R = rotMbyV(vec);
+end
+handles.Cube = RedrawCube(R,handles.Cube);
 
 
 % --- Executes on button press in button_reset.
