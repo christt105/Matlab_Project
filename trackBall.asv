@@ -315,29 +315,20 @@ function button_reset_Callback(hObject, eventdata, handles)
 % hObject    handle to button_reset (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
 % Reset euler angle inputs
 set(handles.euler_angle_a,'String',0);
 set(handles.euler_angle_b,'String',0);
 set(handles.euler_angle_c,'String',0);
-
 % Reset axis/angle inputs
 set(handles.euler_angleaxis_angle,'String',0);
 set(handles.euler_angleaxis_x,'String',0);
 set(handles.euler_angleaxis_y,'String',0);
 set(handles.euler_angleaxis_z,'String',0);
-
 % Reset quaternion inputs
 set(handles.quaternion_q0_0,'String',0);
 set(handles.quaternion_q0_1,'String',0);
 set(handles.quaternion_q0_2,'String',0);
 set(handles.quaternion_q0_3,'String',0);
-
-% Reset rotation vector  inputs
-set(handles.rotation_vector_x,'String',0);
-set(handles.rotation_vector_y,'String',0);
-set(handles.rotation_vector_z,'String',0);
-
 %Build identity rotation matrix
  R = [1 0 0; 0 1 0;0 0 1];
 handles.Cube = RedrawCube(R,handles.Cube);
