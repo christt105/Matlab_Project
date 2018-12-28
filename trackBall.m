@@ -267,7 +267,12 @@ function button_euler_angles_Callback(hObject, eventdata, handles)
 % hObject    handle to button_euler_angles (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+phi = str2double(get(handles.euler_angle_a,'String'));
+theta = str2double(get(handles.euler_angle_b,'String'));
+psi = str2double(get(handles.euler_angle_c,'String'));
 
+[R] = eAngles2rotM(phi,theta,psi);
+handles.Cube = RedrawCube(R,handles.Cube);
 
 % --- Executes on button press in button_axis_angle.
 function button_axis_angle_Callback(hObject, eventdata, handles)
