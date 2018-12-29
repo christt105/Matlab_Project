@@ -96,9 +96,8 @@ xmouse = mousepos(1,1);
 ymouse = mousepos(1,2);
 
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
-   
-   
-    radius = 500;
+    set(handles.figure1,'WindowButtonMotionFcn',{@my_MouseMoveFcn,hObject});
+    radius = 50;
     m0=0;
     
     %% Holroyd's arcball
@@ -138,7 +137,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     %%% DO things
     % use with the proper R matrix to rotate the cube
     
-     radius = 500;
+     radius = 50;
      m1 = 0;
    
      %% Holroyd's arcball
@@ -170,6 +169,9 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     SetRotationMatrix(R, handles);
 %     R = [1 0 0; 0 -1 0;0 0 -1];
 %     handles.Cube = RedrawCube(R,handles.Cube);
+     %% Saving clicked mouse coords
+     SetInitialVector(m0);
+     SetInitialQuaternion([1 0 0 0]')
     
 end
 guidata(hObject,handles);
