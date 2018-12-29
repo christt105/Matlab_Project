@@ -374,41 +374,41 @@ handles.Cube = RedrawCube(R,handles.Cube);
 function SetRotationMatrix(R, handles)
 
 % Set Rotation matrix text
-set(handles.rotmat_1_1,'string',num2str(R(1,1)));
-set(handles.rotmat_1_2,'string',num2str(R(1,2)));
-set(handles.rotmat_1_3,'string',num2str(R(1,3)));
-set(handles.rotmat_2_1,'string',num2str(R(2,1)));
-set(handles.rotmat_2_2,'string',num2str(R(2,2)));
-set(handles.rotmat_2_3,'string',num2str(R(2,3)));
-set(handles.rotmat_3_1,'string',num2str(R(3,1)));
-set(handles.rotmat_3_2,'string',num2str(R(3,2)));
-set(handles.rotmat_3_3,'string',num2str(R(3,3)));
+set(handles.rotmat_1_1,'string',round(R(1,1),3));
+set(handles.rotmat_1_2,'string',round(R(1,2),3));
+set(handles.rotmat_1_3,'string',round(R(1,3),3));
+set(handles.rotmat_2_1,'string',round(R(2,1),3));
+set(handles.rotmat_2_2,'string',round(R(2,2),3));
+set(handles.rotmat_2_3,'string',round(R(2,3),3));
+set(handles.rotmat_3_1,'string',round(R(3,1),3));
+set(handles.rotmat_3_2,'string',round(R(3,2),3));
+set(handles.rotmat_3_3,'string',round(R(3,3),3));
 
 % Euler angle/axis
 [u, angle] = rotMat2Eaa(R);
 set(handles.euler_angleaxis_angle,'String',rad2deg(angle));
-set(handles.euler_angleaxis_x,'String',u(1));
-set(handles.euler_angleaxis_y,'String',u(2));
-set(handles.euler_angleaxis_z,'String',u(3));
+set(handles.euler_angleaxis_x,'String',round(u(1),3));
+set(handles.euler_angleaxis_y,'String',round(u(2),3));
+set(handles.euler_angleaxis_z,'String',round(u(3),3));
 
 % Euler angles
 [phi1,phi2,theta1,theta2,psi1,psi2,flag] = rotM2eAngles(R);
-set(handles.euler_angle_a,'String',phi1);
-set(handles.euler_angle_b,'String',theta1);
-set(handles.euler_angle_c,'String',psi1);
+set(handles.euler_angle_a,'String',round(phi1,3));
+set(handles.euler_angle_b,'String',round(theta1,3));
+set(handles.euler_angle_c,'String',round(psi1,3));
 
 % Quaternion
 q = rotMat2quat(R);
-set(handles.quaternion_q0_0,'String',q(1));
-set(handles.quaternion_q0_1,'String',q(2));
-set(handles.quaternion_q0_2,'String',q(3));
-set(handles.quaternion_q0_3,'String',q(4));
+set(handles.quaternion_q0_0,'String',round(q(1),3));
+set(handles.quaternion_q0_1,'String',round(q(2),3));
+set(handles.quaternion_q0_2,'String',round(q(3),3));
+set(handles.quaternion_q0_3,'String',round(q(4),3));
 
 % Rotation vector
 v = Eaa2V(angle,u);
-set(handles.rotation_vector_x,'String',v(1));
-set(handles.rotation_vector_y,'String',v(2));
-set(handles.rotation_vector_z,'String',v(3));
+set(handles.rotation_vector_x,'String',round(v(1),3));
+set(handles.rotation_vector_y,'String',round(v(2),3));
+set(handles.rotation_vector_z,'String',round(v(3),3));
 
 function rotmat_1_1_Callback(hObject, eventdata, handles)
 % hObject    handle to rotmat_1_1 (see GCBO)
