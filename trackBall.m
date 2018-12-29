@@ -146,7 +146,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
          m1 = [xmouse, ymouse, Z]';
          
      else 
-         Z =  (radius.^2)/2*sqrt(xmouse.^2 + ymouse.^2);
+         Z =  (radius.^2)/(2*sqrt(xmouse.^2 + ymouse.^2));
          m1 = [xmouse, ymouse, Z]'/sqrt(xmouse.^2 + ymouse.^2+Z.^2);
      end
      
