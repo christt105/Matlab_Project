@@ -297,10 +297,11 @@ angle = str2double(get(handles.euler_angleaxis_angle,'String'));
 euler_axis = [str2double(get(handles.euler_angleaxis_x,'String'));
                 str2double(get(handles.euler_angleaxis_y,'String'));
                 str2double(get(handles.euler_angleaxis_z,'String'))];
+            
 if(angle == 0 || sqrt(euler_axis(1)^2+euler_axis(2)^2+euler_axis(3)^2) == 0)
     [R] = eye(3);
 else
-    [R] = Eaa2rotMat(euler_axis,angle);
+    [R] = Eaa2rotMat(euler_axis,deg2rad(angle));
 end
 
 handles.Cube = RedrawCube(R,handles.Cube);
