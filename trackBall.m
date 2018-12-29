@@ -98,7 +98,7 @@ ymouse = mousepos(1,2);
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
    
    
-    radius = 3;
+    radius = 500;
     m0=0;
     
     %% Holroyd's arcball
@@ -138,7 +138,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     %%% DO things
     % use with the proper R matrix to rotate the cube
     
-     radius = 3;
+     radius = 500;
      m1 = 0;
    
      %% Holroyd's arcball
@@ -148,7 +148,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
          
      else 
          Z =  (radius.^2)/(2*sqrt(xmouse.^2 + ymouse.^2));
-         m1 = [xmouse, ymouse, Z]'/sqrt(xmouse.^2 + ymouse.^2+Z.^2);
+         m1 = radius * [xmouse, ymouse, Z]'/norm(xmouse.^2 + ymouse.^2+Z.^2);
      end
      
     %% Loading previous mouse coords
@@ -161,7 +161,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     q1 = [cosd(angle/2),sin(angle/2) * axis']';
     q1 = quat_normalize(q1);
     q0 = GetInitialQuaternion();
-    q1 = multiplyQuat(q1,q0);
+    q1 = multiplyQuat(q0,q1);
     R = quat2RotMat(q1);
     %R = Eaa2rotMat(axis, angle); % Build Rotation Matrix
     SetInitialQuaternion(q1);
