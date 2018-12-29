@@ -31,5 +31,6 @@ else
     end
 end
 q = q/2;
+q = quat_normalize(q);
 end
 
