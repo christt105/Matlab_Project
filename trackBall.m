@@ -113,6 +113,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
      
      %% Saving clicked mouse coords
      SetInitialVector(m0);
+     SetInitialQuaternion([1 0 0 0]');
     
     set(handles.figure1,'WindowButtonMotionFcn',{@my_MouseMoveFcn,hObject});
 end
@@ -157,11 +158,13 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     axis = cross(m0, m1); % Obtain axis
     angle = acosd((m1'*m0)/(norm(m1)*norm(m0))); % Obtain angle
     axis = axis / norm(axis);
-    q = [cosd(angle/2),sin(angle/2) * axis']';
-    q = quat_normalize(q);
-    R = quat2RotMat(q);
+    q1 = [cosd(angle/2),sin(angle/2) * axis']';
+    q1 = quat_normalize(q1);
+    q0 = GetInitialQuaternion();
+    q1 = multiplyQuat(q1,q0);
+    R = quat2RotMat(q1);
     %R = Eaa2rotMat(axis, angle); % Build Rotation Matrix
-   
+    SetInitialQuaternion(q1);
     %% Rotate the Cube
     handles.Cube = RedrawCube(R,handles.Cube);
     SetRotationMatrix(R, handles);
@@ -264,6 +267,14 @@ initial_v = v;
 function v = GetInitialVector()
 global initial_v;
 v = initial_v;
+
+function SetInitialQuaternion(q)
+global prev_q;
+prev_q = q;
+
+function q = GetInitialQuaternion()
+global prev_q;
+q = prev_q;
 
 % --- Executes on button press in button_euler_angles.
 function button_euler_angles_Callback(hObject, eventdata, handles)
