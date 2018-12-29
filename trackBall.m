@@ -22,7 +22,7 @@ function varargout = trackBall(varargin)
 
 % Edit the above text to modify the response to help trackBall
 
-% Last Modified by GUIDE v2.5 29-Dec-2018 19:08:51
+% Last Modified by GUIDE v2.5 29-Dec-2018 20:55:55
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -163,6 +163,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     q1 = multiplyQuat(q0,q1);
     R = quat2RotMat(q1);
     %R = Eaa2rotMat(axis, angle); % Build Rotation Matrix
+    SetInitialVector(m1);
     SetInitialQuaternion(q1);
     %% Rotate the Cube
     handles.Cube = RedrawCube(R,handles.Cube);
@@ -170,8 +171,8 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
 %     R = [1 0 0; 0 -1 0;0 0 -1];
 %     handles.Cube = RedrawCube(R,handles.Cube);
      %% Saving clicked mouse coords
-     SetInitialVector(m0);
-     SetInitialQuaternion([1 0 0 0]')
+     
+     %SetInitialQuaternion([1 0 0 0]')
     
 end
 guidata(hObject,handles);
