@@ -325,7 +325,7 @@ quat = [str2double(get(handles.quaternion_q0_0,'String'));
     
 quat = quat_normalize(quat);
 
-if( quat_module(quat) == 0 )
+if( quat_module(quat) == 1 )
   [R] = quat2RotMat(quat);
 else
     R = eye(3);
