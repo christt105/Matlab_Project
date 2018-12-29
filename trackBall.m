@@ -57,7 +57,7 @@ set(hObject,'WindowButtonUpFcn',{@my_MouseReleaseFcn,handles.axes1});
 axes(handles.axes1);
 
 SetInitialQuaternion([1 0 0 0]');
-
+SetRotationMatrix(eye(3),handles);
 handles.Cube=DrawCube(eye(3));
 
 set(handles.axes1,'CameraPosition',...
