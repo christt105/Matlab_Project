@@ -365,6 +365,8 @@ function button_reset_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+SetInitialQuaternion([1 0 0 0]');
+SetInitialVector([0 0 0]');
 %Build identity rotation matrix
  R = eye(3);
  
