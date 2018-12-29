@@ -283,12 +283,12 @@ angle = str2double(get(handles.euler_angleaxis_angle,'String'));
 euler_axis = [str2double(get(handles.euler_angleaxis_x,'String'));
                 str2double(get(handles.euler_angleaxis_y,'String'));
                 str2double(get(handles.euler_angleaxis_z,'String'))];
-
-if(angle ~= 0 && euler_axis(:,1) ~= 0 )            
-   [R] = Eaa2rotMat(euler_axis,angle);
+if(angle == 0 || sqrt(euler_axis(1)^2+euler_axis(2)^2+euler_axis(3)^2) == 0)
+    [R] = eye(3);
 else
-    R = [1 0 0; 0 1 0;0 0 1];
+    [R] = Eaa2rotMat(euler_axis,angle);
 end
+
 handles.Cube = RedrawCube(R,handles.Cube);
 
 % --- Executes on button press in button_quaternion.
@@ -303,10 +303,10 @@ quat = [str2double(get(handles.quaternion_q0_0,'String'));
     
 quat = quat_normalize(quat);
 
-if( sum(quat) ~= 0 )            
+if( quat_module(quat) == 0 )
   [R] = quat2RotMat(quat);
 else
-    R = [1 0 0; 0 1 0;0 0 1];
+    R = eye(3);
 end
 
 handles.Cube = RedrawCube(R,handles.Cube);
