@@ -1,4 +1,4 @@
-function [R] = rotMbyV(vec)
+function [R] = V2rotMat(vec)
 %This function returns a Matrixs by the vector we add
 
 norm_vec = norm(vec);

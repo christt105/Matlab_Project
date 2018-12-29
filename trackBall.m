@@ -287,6 +287,7 @@ psi = str2double(get(handles.euler_angle_c,'String'));
 
 [R] = eAngles2rotM(phi,theta,psi);
 
+SetRotationMatrix(R, handles);
 
 handles.Cube = RedrawCube(R,handles.Cube);
 
@@ -305,6 +306,8 @@ if(angle == 0 || sqrt(euler_axis(1)^2+euler_axis(2)^2+euler_axis(3)^2) == 0)
 else
     [R] = Eaa2rotMat(euler_axis,deg2rad(angle));
 end
+
+SetRotationMatrix(R, handles);
 
 handles.Cube = RedrawCube(R,handles.Cube);
 
@@ -326,6 +329,8 @@ else
     R = eye(3);
 end
 
+SetRotationMatrix(R, handles);
+
 handles.Cube = RedrawCube(R,handles.Cube);
 
 
@@ -343,8 +348,11 @@ vec = [v_x, v_y, v_z]';
 if(norm(vec) == 0)
     R = eye(3);
 else
-    R = rotMbyV(vec);
+    R = V2rotMat(vec);
 end
+
+SetRotationMatrix(R, handles);
+
 handles.Cube = RedrawCube(R,handles.Cube);
 
 
@@ -353,28 +361,6 @@ function button_reset_Callback(hObject, eventdata, handles)
 % hObject    handle to button_reset (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-% Reset euler angle inputs
-set(handles.euler_angle_a,'String',0);
-set(handles.euler_angle_b,'String',0);
-set(handles.euler_angle_c,'String',0);
-
-% Reset axis/angle inputs
-set(handles.euler_angleaxis_angle,'String',0);
-set(handles.euler_angleaxis_x,'String',0);
-set(handles.euler_angleaxis_y,'String',0);
-set(handles.euler_angleaxis_z,'String',0);
-
-% Reset quaternion inputs
-set(handles.quaternion_q0_0,'String',0);
-set(handles.quaternion_q0_1,'String',0);
-set(handles.quaternion_q0_2,'String',0);
-set(handles.quaternion_q0_3,'String',0);
-
-% Reset rotation vector  inputs
-set(handles.rotation_vector_x,'String',0);
-set(handles.rotation_vector_y,'String',0);
-set(handles.rotation_vector_z,'String',0);
 
 %Build identity rotation matrix
  R = eye(3);
@@ -396,7 +382,31 @@ set(handles.rotmat_3_1,'string',num2str(R(3,1)));
 set(handles.rotmat_3_2,'string',num2str(R(3,2)));
 set(handles.rotmat_3_3,'string',num2str(R(3,3)));
 
+% Euler angle/axis
+[u, angle] = rotMat2Eaa(R);
+set(handles.euler_angleaxis_angle,'String',rad2deg(angle));
+set(handles.euler_angleaxis_x,'String',u(1));
+set(handles.euler_angleaxis_y,'String',u(2));
+set(handles.euler_angleaxis_z,'String',u(3));
 
+% Euler angles
+[phi1,phi2,theta1,theta2,psi1,psi2,flag] = rotM2eAngles(R);
+set(handles.euler_angle_a,'String',phi1);
+set(handles.euler_angle_b,'String',theta1);
+set(handles.euler_angle_c,'String',psi1);
+
+% Quaternion
+q = rotMat2quat(R);
+set(handles.quaternion_q0_0,'String',q(1));
+set(handles.quaternion_q0_1,'String',q(2));
+set(handles.quaternion_q0_2,'String',q(3));
+set(handles.quaternion_q0_3,'String',q(4));
+
+% Rotation vector
+v = Eaa2V(angle,u);
+set(handles.rotation_vector_x,'String',v(1));
+set(handles.rotation_vector_y,'String',v(2));
+set(handles.rotation_vector_z,'String',v(3));
 
 function rotmat_1_1_Callback(hObject, eventdata, handles)
 % hObject    handle to rotmat_1_1 (see GCBO)
