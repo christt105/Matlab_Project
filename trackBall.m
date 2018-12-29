@@ -325,11 +325,7 @@ quat = [str2double(get(handles.quaternion_q0_0,'String'));
     
 quat = quat_normalize(quat);
 
-if( quat_module(quat) == 1 )
-  [R] = quat2RotMat(quat);
-else
-    R = eye(3);
-end
+[R] = quat2RotMat(quat);
 
 SetRotationMatrix(R, handles);
 
@@ -375,42 +371,44 @@ handles.Cube = RedrawCube(R,handles.Cube);
 
 function SetRotationMatrix(R, handles)
 
+decimals = 5;
 % Set Rotation matrix text
-set(handles.rotmat_1_1,'string',round(R(1,1),3));
-set(handles.rotmat_1_2,'string',round(R(1,2),3));
-set(handles.rotmat_1_3,'string',round(R(1,3),3));
-set(handles.rotmat_2_1,'string',round(R(2,1),3));
-set(handles.rotmat_2_2,'string',round(R(2,2),3));
-set(handles.rotmat_2_3,'string',round(R(2,3),3));
-set(handles.rotmat_3_1,'string',round(R(3,1),3));
-set(handles.rotmat_3_2,'string',round(R(3,2),3));
-set(handles.rotmat_3_3,'string',round(R(3,3),3));
+set(handles.rotmat_1_1,'string',round(R(1,1),decimals));
+set(handles.rotmat_1_2,'string',round(R(1,2),decimals));
+set(handles.rotmat_1_3,'string',round(R(1,3),decimals));
+set(handles.rotmat_2_1,'string',round(R(2,1),decimals));
+set(handles.rotmat_2_2,'string',round(R(2,2),decimals));
+set(handles.rotmat_2_3,'string',round(R(2,3),decimals));
+set(handles.rotmat_3_1,'string',round(R(3,1),decimals));
+set(handles.rotmat_3_2,'string',round(R(3,2),decimals));
+set(handles.rotmat_3_3,'string',round(R(3,3),decimals));
 
 % Euler angle/axis
 [angle, u] = rotMat2Eaa(R);
 set(handles.euler_angleaxis_angle,'String',angle);
-set(handles.euler_angleaxis_x,'String',round(u(1),3));
-set(handles.euler_angleaxis_y,'String',round(u(2),3));
-set(handles.euler_angleaxis_z,'String',round(u(3),3));
+set(handles.euler_angleaxis_x,'String',round(u(1),decimals));
+set(handles.euler_angleaxis_y,'String',round(u(2),decimals));
+set(handles.euler_angleaxis_z,'String',round(u(3),decimals));
 
 % Euler angles
 [phi1,phi2,theta1,theta2,psi1,psi2,flag] = rotM2eAngles(R);
-set(handles.euler_angle_a,'String',round(phi1,3));
-set(handles.euler_angle_b,'String',round(theta1,3));
-set(handles.euler_angle_c,'String',round(psi1,3));
+set(handles.euler_angle_a,'String',round(phi1,decimals));
+set(handles.euler_angle_b,'String',round(theta1,decimals));
+set(handles.euler_angle_c,'String',round(psi1,decimals));
 
 % Quaternion
 q = rotMat2quat(R);
-set(handles.quaternion_q0_0,'String',round(q(1),3));
-set(handles.quaternion_q0_1,'String',round(q(2),3));
-set(handles.quaternion_q0_2,'String',round(q(3),3));
-set(handles.quaternion_q0_3,'String',round(q(4),3));
+%q = quat_normalize(q);
+set(handles.quaternion_q0_0,'String',round(q(1),decimals));
+set(handles.quaternion_q0_1,'String',round(q(2),decimals));
+set(handles.quaternion_q0_2,'String',round(q(3),decimals));
+set(handles.quaternion_q0_3,'String',round(q(4),decimals));
 
 % Rotation vector
 v = Eaa2V(angle,u);
-set(handles.rotation_vector_x,'String',round(v(1),3));
-set(handles.rotation_vector_y,'String',round(v(2),3));
-set(handles.rotation_vector_z,'String',round(v(3),3));
+set(handles.rotation_vector_x,'String',round(v(1),decimals));
+set(handles.rotation_vector_y,'String',round(v(2),decimals));
+set(handles.rotation_vector_z,'String',round(v(3),decimals));
 
 function rotmat_1_1_Callback(hObject, eventdata, handles)
 % hObject    handle to rotmat_1_1 (see GCBO)
