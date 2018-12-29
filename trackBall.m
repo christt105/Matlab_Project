@@ -138,7 +138,6 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     % use with the proper R matrix to rotate the cube
     
      radius = 50;
-     m1 = 0;
    
      %% Holroyd's arcball
      if((xmouse.^2+ymouse.^2) < 0.5*radius.^2)        
@@ -152,6 +151,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
      
     %% Loading previous mouse coords
     m0 = GetInitialVector();
+    q0 = GetInitialQuaternion();
     
      %% Quaternion from two vectors
     axis = cross(m0, m1); % Obtain axis
@@ -159,7 +159,6 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     axis = axis / norm(axis);
     q1 = [cosd(angle/2),sin(angle/2) * axis']';
     q1 = quat_normalize(q1);
-    q0 = GetInitialQuaternion();
     q1 = multiplyQuat(q0,q1);
     R = quat2RotMat(q1);
     %R = Eaa2rotMat(axis, angle); % Build Rotation Matrix
@@ -388,8 +387,8 @@ set(handles.rotmat_3_2,'string',round(R(3,2),3));
 set(handles.rotmat_3_3,'string',round(R(3,3),3));
 
 % Euler angle/axis
-[u, angle] = rotMat2Eaa(R);
-set(handles.euler_angleaxis_angle,'String',rad2deg(angle));
+[angle, u] = rotMat2Eaa(R);
+set(handles.euler_angleaxis_angle,'String',angle);
 set(handles.euler_angleaxis_x,'String',round(u(1),3));
 set(handles.euler_angleaxis_y,'String',round(u(2),3));
 set(handles.euler_angleaxis_z,'String',round(u(3),3));
