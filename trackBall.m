@@ -56,6 +56,8 @@ set(hObject,'WindowButtonDownFcn',{@my_MouseClickFcn,handles.axes1});
 set(hObject,'WindowButtonUpFcn',{@my_MouseReleaseFcn,handles.axes1});
 axes(handles.axes1);
 
+SetInitialQuaternion([1 0 0 0]');
+
 handles.Cube=DrawCube(eye(3));
 
 set(handles.axes1,'CameraPosition',...
@@ -98,7 +100,6 @@ ymouse = mousepos(1,2);
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     set(handles.figure1,'WindowButtonMotionFcn',{@my_MouseMoveFcn,hObject});
     radius = 50;
-    m0=0;
     
     %% Holroyd's arcball
      if((xmouse.^2+ymouse.^2) < 0.5*radius.^2)        
@@ -112,7 +113,6 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
      
      %% Saving clicked mouse coords
      SetInitialVector(m0);
-     SetInitialQuaternion([1 0 0 0]');
     
     set(handles.figure1,'WindowButtonMotionFcn',{@my_MouseMoveFcn,hObject});
 end
