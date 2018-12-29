@@ -286,6 +286,8 @@ theta = str2double(get(handles.euler_angle_b,'String'));
 psi = str2double(get(handles.euler_angle_c,'String'));
 
 [R] = eAngles2rotM(phi,theta,psi);
+
+
 handles.Cube = RedrawCube(R,handles.Cube);
 
 % --- Executes on button press in button_axis_angle.
@@ -375,8 +377,26 @@ set(handles.rotation_vector_y,'String',0);
 set(handles.rotation_vector_z,'String',0);
 
 %Build identity rotation matrix
- R = [1 0 0; 0 1 0;0 0 1];
+ R = eye(3);
+ 
+ SetRotationMatrix(R, handles);
+ 
 handles.Cube = RedrawCube(R,handles.Cube);
+
+function SetRotationMatrix(R, handles)
+
+% Set Rotation matrix text
+set(handles.rotmat_1_1,'string',num2str(R(1,1)));
+set(handles.rotmat_1_2,'string',num2str(R(1,2)));
+set(handles.rotmat_1_3,'string',num2str(R(1,3)));
+set(handles.rotmat_2_1,'string',num2str(R(2,1)));
+set(handles.rotmat_2_2,'string',num2str(R(2,2)));
+set(handles.rotmat_2_3,'string',num2str(R(2,3)));
+set(handles.rotmat_3_1,'string',num2str(R(3,1)));
+set(handles.rotmat_3_2,'string',num2str(R(3,2)));
+set(handles.rotmat_3_3,'string',num2str(R(3,3)));
+
+
 
 function rotmat_1_1_Callback(hObject, eventdata, handles)
 % hObject    handle to rotmat_1_1 (see GCBO)
@@ -996,15 +1016,3 @@ function euler_angle_c_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-
-function SetRotationMatrix(R, handles)
-
-    set(handles.rotmat_1_1,'string',num2str(R(1,1)));
-    set(handles.rotmat_1_2,'string',num2str(R(1,2)));
-    set(handles.rotmat_1_3,'string',num2str(R(1,3)));
-    set(handles.rotmat_2_1,'string',num2str(R(2,1)));
-    set(handles.rotmat_2_2,'string',num2str(R(2,2)));
-    set(handles.rotmat_2_3,'string',num2str(R(2,3)));
-    set(handles.rotmat_3_1,'string',num2str(R(3,1)));
-    set(handles.rotmat_3_2,'string',num2str(R(3,2)));
-    set(handles.rotmat_3_3,'string',num2str(R(3,3)));
