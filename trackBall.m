@@ -22,7 +22,7 @@ function varargout = trackBall(varargin)
 
 % Edit the above text to modify the response to help trackBall
 
-% Last Modified by GUIDE v2.5 23-Dec-2018 12:17:17
+% Last Modified by GUIDE v2.5 29-Dec-2018 17:52:43
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -154,14 +154,17 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     m0 = GetInitialVector();
     
      %% Quaternion from two vectors
-    axis = -cross(m1, m0); % Obtain axis
-    angle = acosd((m1'*m0)/(norm(m1)*norm(m0)))*0.2; % Obtain angle
-     
-    R = Eaa2rotMat(axis, angle); % Build Rotation Matrix
+    axis = cross(m0, m1); % Obtain axis
+    angle = acosd((m1'*m0)/(norm(m1)*norm(m0))); % Obtain angle
+    axis = axis / norm(axis);
+    q = [cosd(angle/2),sin(angle/2) * axis']';
+    q = quat_normalize(q);
+    R = quat2RotMat(q);
+    %R = Eaa2rotMat(axis, angle); % Build Rotation Matrix
    
     %% Rotate the Cube
     handles.Cube = RedrawCube(R,handles.Cube);
-    
+    SetRotationMatrix(R, handles);
 %     R = [1 0 0; 0 -1 0;0 0 -1];
 %     handles.Cube = RedrawCube(R,handles.Cube);
     
@@ -547,18 +550,18 @@ end
 
 
 
-function rotmat__Callback(hObject, eventdata, handles)
-% hObject    handle to rotmat_ (see GCBO)
+function rotmat_3_3_Callback(hObject, eventdata, handles)
+% hObject    handle to rotmat_3_3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of rotmat_ as text
-%        str2double(get(hObject,'String')) returns contents of rotmat_ as a double
+% Hints: get(hObject,'String') returns contents of rotmat_3_3 as text
+%        str2double(get(hObject,'String')) returns contents of rotmat_3_3 as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function rotmat__CreateFcn(hObject, eventdata, handles)
-% hObject    handle to rotmat_ (see GCBO)
+function rotmat_3_3_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to rotmat_3_3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -982,7 +985,7 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
-function SetRotationMatrix(R)
+function SetRotationMatrix(R, handles)
 
     set(handles.rotmat_1_1,'string',num2str(R(1,1)));
     set(handles.rotmat_1_2,'string',num2str(R(1,2)));
