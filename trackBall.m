@@ -99,7 +99,7 @@ ymouse = mousepos(1,2);
 
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     set(handles.figure1,'WindowButtonMotionFcn',{@my_MouseMoveFcn,hObject});
-    radius = 30;
+    radius = 50;
     
     %% Holroyd's arcball
      if((xmouse.^2+ymouse.^2) < 0.5*radius.^2)        
@@ -138,7 +138,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     %%% DO things
     % use with the proper R matrix to rotate the cube
     
-     radius = 30;
+     radius = 50;
    
      %% Holroyd's arcball
      if((xmouse.^2+ymouse.^2) < 0.5*radius.^2)        
