@@ -290,7 +290,7 @@ psi = str2double(get(handles.euler_angle_c,'String'));
 
 [R] = eAngles2rotM(phi,theta,psi);
 
-SetRotationMatrix(R, handles);
+SetInitialQuaternion(SetRotationMatrix(R, handles));
 
 handles.Cube = RedrawCube(R,handles.Cube);
 
@@ -310,7 +310,7 @@ else
     [R] = Eaa2rotMat(euler_axis,deg2rad(angle));
 end
 
-SetRotationMatrix(R, handles);
+SetInitialQuaternion(SetRotationMatrix(R, handles));
 
 handles.Cube = RedrawCube(R,handles.Cube);
 
@@ -328,7 +328,7 @@ quat = quat_normalize(quat);
 
 [R] = quat2RotMat(quat);
 
-SetRotationMatrix(R, handles);
+SetInitialQuaternion(SetRotationMatrix(R, handles));
 
 handles.Cube = RedrawCube(R,handles.Cube);
 
@@ -350,7 +350,7 @@ else
     R = V2rotMat(vec);
 end
 
-SetRotationMatrix(R, handles);
+SetInitialQuaternion(SetRotationMatrix(R, handles));
 
 handles.Cube = RedrawCube(R,handles.Cube);
 
@@ -366,11 +366,12 @@ SetInitialVector([0 0 0]');
 %Build identity rotation matrix
  R = eye(3);
  
- SetRotationMatrix(R, handles);
+ SetInitialQuaternion(SetRotationMatrix(R, handles));
  
 handles.Cube = RedrawCube(R,handles.Cube);
 
-function SetRotationMatrix(R, handles)
+function [q] = SetRotationMatrix(R, handles)
+% Update all input guide text and returns rotation quaternion
 
 decimals = 5;
 % Set Rotation matrix text
@@ -403,7 +404,6 @@ set(handles.quaternion_q0_0,'String',round(q(1),decimals));
 set(handles.quaternion_q0_1,'String',round(q(2),decimals));
 set(handles.quaternion_q0_2,'String',round(q(3),decimals));
 set(handles.quaternion_q0_3,'String',round(q(4),decimals));
-SetInitialQuaternion(q);
 
 % Rotation vector
 v = Eaa2V(angle,u);
