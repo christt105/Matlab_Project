@@ -3,7 +3,8 @@
 ## Introduction
 This is final project of Math subject of UPC - CITM - Game dessing and develop grade.
 
-## Controls
+## Repository
+Link to github [repository](https://github.com/christt105/Matlab_Project)
 
 ## Contributors
 Gálvez Llorens, Marc: [optus23](https://github.com/optus23)
