@@ -99,7 +99,7 @@ ymouse = mousepos(1,2);
 
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     set(handles.figure1,'WindowButtonMotionFcn',{@my_MouseMoveFcn,hObject});
-    radius = 50;
+    radius = 30;
     
     %% Holroyd's arcball
      if((xmouse.^2+ymouse.^2) < 0.5*radius.^2)        
@@ -110,6 +110,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
          Z =  (radius.^2)/2*sqrt(xmouse.^2 + ymouse.^2);
          m0 = [xmouse, ymouse, Z]'/sqrt(xmouse.^2 + ymouse.^2+Z.^2);
      end
+     
      
      %% Saving clicked mouse coords
      SetInitialVector(m0);
@@ -137,7 +138,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     %%% DO things
     % use with the proper R matrix to rotate the cube
     
-     radius = 50;
+     radius = 30;
    
      %% Holroyd's arcball
      if((xmouse.^2+ymouse.^2) < 0.5*radius.^2)        
@@ -159,7 +160,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     axis = axis / norm(axis);
     q1 = [cosd(angle/2),sin(angle/2) * axis']';
     q1 = quat_normalize(q1);
-    q1 = multiplyQuat(q0,q1);
+    q1 = multiplyQuat(q1,q0);
     R = quat2RotMat(q1);
     %R = Eaa2rotMat(axis, angle); % Build Rotation Matrix
     SetInitialVector(m1);
@@ -398,7 +399,6 @@ set(handles.euler_angle_c,'String',round(psi1,decimals));
 
 % Quaternion
 q = rotMat2quat(R);
-%q = quat_normalize(q);
 set(handles.quaternion_q0_0,'String',round(q(1),decimals));
 set(handles.quaternion_q0_1,'String',round(q(2),decimals));
 set(handles.quaternion_q0_2,'String',round(q(3),decimals));
