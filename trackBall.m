@@ -403,6 +403,7 @@ set(handles.quaternion_q0_0,'String',round(q(1),decimals));
 set(handles.quaternion_q0_1,'String',round(q(2),decimals));
 set(handles.quaternion_q0_2,'String',round(q(3),decimals));
 set(handles.quaternion_q0_3,'String',round(q(4),decimals));
+SetInitialQuaternion(q);
 
 % Rotation vector
 v = Eaa2V(angle,u);
