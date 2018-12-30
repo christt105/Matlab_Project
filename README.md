@@ -1,4 +1,4 @@
-# Matlab_Project
+﻿# Matlab_Project
 
 ## Introduction
 This is final project of Math subject of UPC - CITM - Game dessing and develop grade.
@@ -14,3 +14,7 @@ Martínez de la Rosa, Christian: [christt105](https://github.com/christt105)
 Moreu Farran, Lluís: [youis11](https://github.com/youis11)
 
 Peña, Carlos: [CarlosUPC](https://github.com/CarlosUPC)
+
+# Video
+
+https://www.youtube.com/watch?v=-8ozJZLvLpk&feature=youtu.be
