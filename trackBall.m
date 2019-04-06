@@ -115,7 +115,6 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
      %% Saving clicked mouse coords
      SetInitialVector(m0);
     
-    set(handles.figure1,'WindowButtonMotionFcn',{@my_MouseMoveFcn,hObject});
 end
 guidata(hObject,handles)
 
@@ -162,17 +161,13 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     q1 = quat_normalize(q1);
     q1 = multiplyQuat(q1,q0);
     R = quat2RotMat(q1);
-    %R = Eaa2rotMat(axis, angle); % Build Rotation Matrix
+
     SetInitialVector(m1);
     SetInitialQuaternion(q1);
     %% Rotate the Cube
     handles.Cube = RedrawCube(R,handles.Cube);
     SetRotationMatrix(R, handles);
-%     R = [1 0 0; 0 -1 0;0 0 -1];
-%     handles.Cube = RedrawCube(R,handles.Cube);
-     %% Saving clicked mouse coords
-     
-     %SetInitialQuaternion([1 0 0 0]')
+
     
 end
 guidata(hObject,handles);
